@@ -1,0 +1,11 @@
+D:\Hvit\Game\Client\Client\bin\Debug\Client.exe.config
+D:\Hvit\Game\Client\Client\bin\Debug\Client.exe
+D:\Hvit\Game\Client\Client\bin\Debug\Client.pdb
+D:\Hvit\Game\Client\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+D:\Hvit\Game\Client\Client\obj\Debug\Client.Properties.Resources.resources
+D:\Hvit\Game\Client\Client\obj\Debug\Client.csproj.GenerateResource.Cache
+D:\Hvit\Game\Client\Client\obj\Debug\Client.exe
+D:\Hvit\Game\Client\Client\obj\Debug\Client.pdb
+D:\Hvit\Game\Client\Client\obj\Debug\Client.View.Client.resources
+D:\Hvit\Game\Client\Client\obj\Debug\Client.View.Menu.resources
+D:\Hvit\Game\Client\Client\obj\Debug\Client.View.Login.resources
