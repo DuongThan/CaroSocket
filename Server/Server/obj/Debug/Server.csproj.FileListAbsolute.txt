@@ -7,3 +7,12 @@ D:\Hvit\Game\Server\Server\obj\Debug\Server.csproj.GenerateResource.Cache
 D:\Hvit\Game\Server\Server\obj\Debug\Server.exe
 D:\Hvit\Game\Server\Server\obj\Debug\Server.pdb
 D:\Hvit\Game\Server\Server\obj\Debug\Server.Server.resources
+D:\Hvit\Game\CaroSocket\Server\Server\bin\Debug\Server.exe.config
+D:\Hvit\Game\CaroSocket\Server\Server\obj\Debug\Server.exe
+D:\Hvit\Game\CaroSocket\Server\Server\obj\Debug\Server.pdb
+D:\Hvit\Game\CaroSocket\Server\Server\bin\Debug\Server.exe
+D:\Hvit\Game\CaroSocket\Server\Server\bin\Debug\Server.pdb
+D:\Hvit\Game\CaroSocket\Server\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+D:\Hvit\Game\CaroSocket\Server\Server\obj\Debug\Server.Server.resources
+D:\Hvit\Game\CaroSocket\Server\Server\obj\Debug\Server.Properties.Resources.resources
+D:\Hvit\Game\CaroSocket\Server\Server\obj\Debug\Server.csproj.GenerateResource.Cache

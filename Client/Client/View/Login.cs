@@ -24,17 +24,17 @@ namespace Client.View
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (txtUserName.Text == "") return;
+            if (txtUserName.Text == "" || txtID.Text == "") return;
             else
             {
-               
                 Menu menu = new Menu();
+                menu.PlayerID = int.Parse(txtID.Text);
                 menu.UserName = txtUserName.Text;
                 menu.StartPosition = FormStartPosition.CenterScreen;
                 menu.FormClosed += Menu_FormClosed;
                 this.Hide();
                 menu.Show();
-            }           
+            }
         }
 
         private void Menu_FormClosed(object sender, FormClosedEventArgs e)
@@ -44,7 +44,7 @@ namespace Client.View
 
         private void Login_Load(object sender, EventArgs e)
         {
-            
+
         }
     }
 }

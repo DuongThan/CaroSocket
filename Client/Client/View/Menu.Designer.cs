@@ -28,19 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.rtbBroad = new System.Windows.Forms.RichTextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtchat = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lsbLive = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.lsbOnline = new System.Windows.Forms.ListBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showLiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // rtbBroad
@@ -53,13 +59,13 @@
             this.rtbBroad.TabStop = false;
             this.rtbBroad.Text = "";
             // 
-            // textBox1
+            // txtchat
             // 
-            this.textBox1.Location = new System.Drawing.Point(53, 383);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(276, 33);
-            this.textBox1.TabIndex = 0;
+            this.txtchat.Location = new System.Drawing.Point(53, 383);
+            this.txtchat.Multiline = true;
+            this.txtchat.Name = "txtchat";
+            this.txtchat.Size = new System.Drawing.Size(276, 33);
+            this.txtchat.TabIndex = 0;
             // 
             // button1
             // 
@@ -85,7 +91,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.Controls.Add(this.lsbLive);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(429, 45);
             this.groupBox1.Name = "groupBox1";
@@ -94,22 +100,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Live";
             // 
-            // listBox1
+            // lsbLive
             // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Items.AddRange(new object[] {
+            this.lsbLive.ContextMenuStrip = this.contextMenuStrip2;
+            this.lsbLive.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lsbLive.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lsbLive.FormattingEnabled = true;
+            this.lsbLive.Items.AddRange(new object[] {
             "Dương Thần VS Hanhyoki"});
-            this.listBox1.Location = new System.Drawing.Point(3, 19);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(200, 111);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.TabStop = false;
+            this.lsbLive.Location = new System.Drawing.Point(3, 19);
+            this.lsbLive.Name = "lsbLive";
+            this.lsbLive.Size = new System.Drawing.Size(200, 111);
+            this.lsbLive.TabIndex = 0;
+            this.lsbLive.TabStop = false;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.listBox2);
+            this.groupBox2.Controls.Add(this.lsbOnline);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(429, 184);
             this.groupBox2.Name = "groupBox2";
@@ -118,20 +125,36 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Online";
             // 
-            // listBox2
+            // lsbOnline
             // 
-            this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Items.AddRange(new object[] {
-            "Dương Thần",
-            "Dương Xuân Ngô",
+            this.lsbOnline.ContextMenuStrip = this.contextMenuStrip1;
+            this.lsbOnline.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lsbOnline.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lsbOnline.FormattingEnabled = true;
+            this.lsbOnline.Items.AddRange(new object[] {
+            "Duong",
+            "Than",
             "Hanhyoki"});
-            this.listBox2.Location = new System.Drawing.Point(3, 19);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(200, 167);
-            this.listBox2.TabIndex = 0;
-            this.listBox2.TabStop = false;
+            this.lsbOnline.Location = new System.Drawing.Point(3, 19);
+            this.lsbOnline.Name = "lsbOnline";
+            this.lsbOnline.Size = new System.Drawing.Size(200, 167);
+            this.lsbOnline.TabIndex = 0;
+            this.lsbOnline.TabStop = false;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 48);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Text = "challenge";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // label1
             // 
@@ -153,16 +176,19 @@
             this.button3.Text = "Log out";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // contextMenuStrip2
             // 
-            this.button4.BackgroundImage = global::Client.Properties.Resources.play1;
-            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button4.Location = new System.Drawing.Point(494, 376);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(92, 54);
-            this.button4.TabIndex = 1;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showLiveToolStripMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(125, 26);
+            this.contextMenuStrip2.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip2_Opening);
+            // 
+            // showLiveToolStripMenuItem
+            // 
+            this.showLiveToolStripMenuItem.Name = "showLiveToolStripMenuItem";
+            this.showLiveToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.showLiveToolStripMenuItem.Text = "Show live";
             // 
             // Menu
             // 
@@ -174,15 +200,16 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtchat);
             this.Controls.Add(this.rtbBroad);
             this.Name = "Menu";
             this.Text = "Menu";
             this.Load += new System.EventHandler(this.Menu_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
+            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,15 +218,18 @@
         #endregion
 
         private System.Windows.Forms.RichTextBox rtbBroad;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtchat;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lsbLive;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox lsbOnline;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem showLiveToolStripMenuItem;
     }
 }

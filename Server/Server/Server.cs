@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using System.IO;
@@ -18,11 +12,14 @@ namespace Server
     delegate void UpdateLstview(string txt);
     public partial class Server : Form
     {
-        List<List<Location>> LstLocation = new List<List<Location>>();
-        List<Player> LstPlayer = new List<Player>();
         private IPAddress IP = IPAddress.Parse("127.0.0.1");
         private int Port = 888;
-        private TcpListener tcpLi = null;
+        public Socket server;
+
+        int Autoupdate = 0;
+
+        List<List<Location>> LstLocation = new List<List<Location>>();
+        List<ClientPlayer> LstPlayer = new List<ClientPlayer>();
         public Server()
         {
             InitializeComponent();
@@ -35,20 +32,53 @@ namespace Server
 
         private void Server_Load(object sender, EventArgs e)
         {
-            tcpLi = new TcpListener(IP, Port);
-            tcpLi.Start();
+            timer1.Interval = 10000;
+            timer1.Start();
+            IPEndPoint iep = new IPEndPoint(IP, Port);
+            server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            server.Bind(iep);
             LsbConnect.Items.Add("Waiting for connetion...");
+            server.Listen(10);
             Thread thr_listener_client = new Thread(ListenerClient);
             thr_listener_client.Start();
         }
 
+
+        protected bool SaveData(byte[] Data)
+        {
+            BinaryWriter Writer = null;
+            string Name = "book";
+
+            try
+            {
+                Writer = new BinaryWriter(File.OpenWrite(Name));
+                Writer.Write(Data);
+                Writer.Flush();
+                Writer.Close();
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
         public void ListenerClient()
         {
             while (true)
             {
                 try
                 {
-                    Socket client = tcpLi.AcceptSocket();
+                    Socket client = server.Accept();
+                    byte[] bdata = new byte[1024];
+                    int rec = client.Receive(bdata);
+                    string strrec = Encoding.Unicode.GetString(bdata, 0, rec);
+                    string[] arr = strrec.Split('`');
+                    if (arr[0] == "ClientConnected")
+                    {
+                        ClientPlayer player = new ClientPlayer(int.Parse(arr[1]), arr[2], client);
+                        LstPlayer.Add(player);
+                    }
                     Thread thr_contect_client = new Thread(ContectWithClient);
                     thr_contect_client.Start(client);
                 }
@@ -57,7 +87,6 @@ namespace Server
                     break;
                 }
             }
-            tcpLi.Stop();
         }
 
         /// <summary>
@@ -68,38 +97,40 @@ namespace Server
         {
             #region chấp nhận kết nối, đưa vào danh sách client
             Socket client = objClient as Socket;
-            Stream stream = new NetworkStream(client);
-            StreamReader read = new StreamReader(stream);
-            string data = read.ReadLine();
-            int ID = int.Parse(data.Substring(0, data.IndexOf(".")));
-            string Name = data.Substring(data.IndexOf(".") + 1, data.Length - 1- ID.ToString().Length);
-            Player player = new Player(ID, Name, client);
-            LstPlayer.Add(player);
-            Client_Connected();
+            byte[] bdata = new byte[1024];
             #endregion
 
             #region Trao đổi dữ liệu với các client
             while (true)
             {
-                data = read.ReadLine();
-                if (data != null)
+                try
                 {
-                    int lc = data.IndexOf('.'); // use to check type of data, chat or play with another player
-                    string str_check_curentType = data.Substring(0, data.IndexOf('.'));
-                    string content = data.Substring(lc + 1, data.Length - 1- str_check_curentType.Length);
-                    if (str_check_curentType == "chatAll")
-                        Client_ChatAll(content);
-                    else if (str_check_curentType == "playChat")
-                        Client_PlayersChat(int.Parse(content.Substring(0, content.IndexOf("."))), content.Substring(content.IndexOf(".") + 1, content.Length));
-                    else Client_PlayersPlay(int.Parse(content.Substring(0, content.IndexOf("."))), content.Substring(content.IndexOf(".") + 1, content.Length));
+                    bdata = new byte[1024];
+                    int rec = client.Receive(bdata);
+                    string strrec = Encoding.Unicode.GetString(bdata, 0, rec);
+                    string[] arr = strrec.Split('`');
+                    if (arr[0] == "ChatAll")
+                    {
+                        Client_ChatAll(arr[1]);
+                    }
+                    else if (arr[0] == "PlayerChat")
+                    {
+
+                    }
+                    else if (arr[0] == "PlayerPlay")
+                    {
+                        Client_PlayersPlay(int.Parse(arr[1]), arr[2], arr[3]);
+                    }
+                    else if (arr[0] == "Challange")
+                    {
+                        Client_Challange(int.Parse(arr[1]), arr[2], int.Parse(arr[3]));
+                    }
                 }
+                catch (Exception e) { MessageBox.Show(e.ToString()); }
             }
             #endregion
-
-            //Kết thúc cuộc trò chuyện
-            stream.Close();
         }
-        
+
 
         /// <summary>
         ///  live players are playing
@@ -114,31 +145,11 @@ namespace Server
         }
 
 
-        public void Client_Connected()
-        {
-
-            foreach (Player player in LstPlayer)
-            {
-                Socket client = player.Client;
-                Stream stream = new NetworkStream(client);
-                StreamWriter write = new StreamWriter(stream);
-                write.AutoFlush = true;
-                write.WriteLine(player.Name + " was connected");
-                write.Close();
-                stream.Close();
-            }
-        }
         public void Client_ChatAll(string data)
         {
-            foreach (Player player in LstPlayer)
+            foreach (ClientPlayer player in LstPlayer)
             {
-                Socket client = player.Client;
-                Stream stream = new NetworkStream(client);
-                StreamWriter write = new StreamWriter(stream);
-                write.AutoFlush = true;
-                write.WriteLine(data);
-                write.Close();
-                stream.Close();
+                player.Client.Send(Encoding.Unicode.GetBytes("ChatAll`" + data));
             }
         }
 
@@ -147,9 +158,23 @@ namespace Server
 
         }
 
-        public void Client_PlayersPlay(int competitorID, string data)
+        public void Client_PlayersPlay(int competitorID, string x, string y)
         {
+            int length = LstPlayer.Count;
+            for (int i = 0; i < length; i++)
+            {
+                if (LstPlayer[i].ClientPlayerID == competitorID)
+                {
+                    LstPlayer[i].Client.Send(Encoding.Unicode.GetBytes("PlayerPlay`" + x + "`" + y));
+                }
+            }
+        }
 
+        public void Client_Challange(int id, string name, int posCompetitor)
+        {
+            ClientPlayer player = LstPlayer.Find(x => x.ClientPlayerID == id);
+            ClientPlayer Competitor = LstPlayer.Find(x => x.ClientPlayerID == posCompetitor);
+            Competitor.Client.Send(Encoding.Unicode.GetBytes("Challange`" + player.ClientPlayerID + "`" + player.Name));
         }
 
         public void UpdataListview(string text)
@@ -161,6 +186,26 @@ namespace Server
             else
             {
                 LsbConnect.Items.Add(text);
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            int length = LstPlayer.Count;
+            if (length == 0 || length == Autoupdate) return;
+            else
+            {
+                string nameplayer = "";
+                for (int i = 0; i < length; i++)
+                {
+                    nameplayer += LstPlayer[i].ClientPlayerID + "." + LstPlayer[i].Name + "`";
+                }
+                nameplayer = nameplayer.Remove(nameplayer.Length - 1);
+                for (int i = 0; i < length; i++)
+                {
+                    LstPlayer[i].Client.Send(Encoding.Unicode.GetBytes("AutoUpdateOnline`" + nameplayer));
+                }
+                Autoupdate = length;
             }
         }
     }

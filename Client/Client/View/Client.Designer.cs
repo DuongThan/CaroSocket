@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -35,7 +36,7 @@
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyrightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.prgbTime = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,6 +52,8 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lblTime = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
@@ -117,12 +120,17 @@
             this.copyrightToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
             this.copyrightToolStripMenuItem.Text = "Copyright";
             // 
-            // progressBar1
+            // prgbTime
             // 
-            this.progressBar1.Location = new System.Drawing.Point(203, 34);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(353, 23);
-            this.progressBar1.TabIndex = 5;
+            this.prgbTime.BackColor = System.Drawing.Color.Navy;
+            this.prgbTime.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.prgbTime.Location = new System.Drawing.Point(203, 34);
+            this.prgbTime.Maximum = 600;
+            this.prgbTime.Name = "prgbTime";
+            this.prgbTime.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.prgbTime.Size = new System.Drawing.Size(353, 23);
+            this.prgbTime.Step = 1;
+            this.prgbTime.TabIndex = 5;
             // 
             // label1
             // 
@@ -270,14 +278,29 @@
             this.pictureBox1.Size = new System.Drawing.Size(401, 401);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // lblTime
+            // 
+            this.lblTime.AutoSize = true;
+            this.lblTime.Location = new System.Drawing.Point(562, 40);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(13, 13);
+            this.lblTime.TabIndex = 12;
+            this.lblTime.Text = "0";
             // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(696, 585);
+            this.Controls.Add(this.lblTime);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
@@ -292,7 +315,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.prgbTime);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -322,7 +345,7 @@
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyrightToolStripMenuItem;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar prgbTime;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
@@ -337,6 +360,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label lblTime;
     }
 }
 

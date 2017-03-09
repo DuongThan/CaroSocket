@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientPlayer.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Server.cs">

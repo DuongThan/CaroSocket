@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.LsbConnect = new System.Windows.Forms.ListBox();
             this.btnQuit = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // LsbConnect
@@ -52,6 +54,10 @@
             this.btnQuit.UseVisualStyleBackColor = true;
             this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Server
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -70,6 +76,7 @@
 
         private System.Windows.Forms.ListBox LsbConnect;
         private System.Windows.Forms.Button btnQuit;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
